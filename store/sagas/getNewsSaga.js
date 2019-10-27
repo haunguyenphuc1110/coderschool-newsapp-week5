@@ -4,7 +4,7 @@ import CONSTANTS from '../constants';
 function* getNews(action) {
   try {
     const response = yield fetch(
-      `https://newsapi.org/v2/everything?domains=wsj.com,nytimes.com&apiKey=fb4ae962a5ea49bc8819e7c9e94bcc9c&page=${action.payload}`
+      `https://newsapi.org/v2/everything?domains=wsj.com,nytimes.com&apiKey=fb4ae962a5ea49bc8819e7c9e94bcc9c&page=${action.payload}&pageSize=10`
     );
     const jsonData = yield response.json();
     yield put({
@@ -16,8 +16,24 @@ function* getNews(action) {
   }
 }
 
+function* searchNews(action) {
+  try {
+    const response = yield fetch(
+      `https://newsapi.org/v2/everything?q=${action.payload}&apiKey=fb4ae962a5ea49bc8819e7c9e94bcc9c&page=1&pageSize=10`
+    );
+    const jsonData = yield response.json();
+    yield put({
+      type: CONSTANTS.SEARCH_NEWS_SUCCEEDED,
+      payload: jsonData.articles
+    });
+  } catch (error) {
+    yield put({type: CONSTANTS.SEARCH_NEWS_FAILED});
+  }
+}
+
 function* getNewsFromApi() {
   yield takeLatest(CONSTANTS.GET_NEWS, getNews);
+  yield takeLatest(CONSTANTS.SEARCH_NEWS, searchNews);
 }
 
 export default getNewsFromApi;

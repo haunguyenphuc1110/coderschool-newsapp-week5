@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getNewsAction } from '../../store/actions/getNewsAction';
+import { getNewsAction, resetNewsAction } from '../../store/actions/getNewsAction';
 
 import HomeView from './Home.view';
 
@@ -16,7 +16,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getNews: (pageNumber) => dispatch(getNewsAction(pageNumber))
+  getNews: (pageNumber) => dispatch(getNewsAction(pageNumber)),
+  reset: () => dispatch(resetNewsAction())
 });
 
 HomeScreen.navigationOptions = {

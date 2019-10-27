@@ -3,35 +3,39 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
     alignItems: 'center',
     backgroundColor: '#fff',
     justifyContent: 'center'
   },
-  card: {
-    borderRadius: 5,
-    elevation: 10
-  },  
-  title: {
-    fontSize: 20,
-    fontWeight: '500'
+  input : {
+    color: 'black'
   },
-  header: {
-    height: 30,
-    width: '100%',
-    backgroundColor: 'pink'
+  buttonUp: {
+    bottom: 10, 
+    right: 10, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    zIndex: 1, 
+    position: 'absolute', 
+    width: 50, 
+    height: 50, 
+    borderWidth: 0.5, 
+    borderColor: 'black',
+    borderRadius: 25, 
+    backgroundColor: 'white', 
+    elevation: 10
   },
   row: {
     flexDirection: 'row'
   },
   label: {
-    fontSize: 16,
+    fontSize: 20,
     color: 'black',
     marginRight: 10,
     fontWeight: 'bold'
   },
   info: {
-    fontSize: 16,
+    fontSize: 20,
     color: 'grey'
   }
 });

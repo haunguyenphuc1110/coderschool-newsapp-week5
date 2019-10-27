@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Dimensions, WebView, Modal, Share } from 'react-native';
+import { WebView, Modal, Share } from 'react-native';
 import { Container, Header, Content, Body, Left, Icon, Right, Title, Button } from 'native-base';
-
-const webViewHeight = Dimensions.get('window').height - 56;
-
+import styles from './Modal.styles';
 // create a component
 class ModalComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.webViewRef = React.createRef();
+  }
+
+  handleBack = () => {
+    this.webViewRef.current.goBack();
   }
 
   handleClose = () => {
@@ -35,11 +38,11 @@ class ModalComponent extends Component {
           visible={showModal}
           onRequestClose={this.handleClose}
         >
-          <Container style={{ margin: 15, marginBottom: 0, backgroundColor: '#fff' }}>
+          <Container style={styles.container}>
             <Header style={{ backgroundColor: '#009387' }}>
               <Left>
-                <Button onPress={this.handleClose} transparent>
-                  <Icon name="close" style={{ color: 'white', fontSize: 12 }} />
+                <Button onPress={this.handleBack} transparent>
+                  <Icon name="arrow-back" size={20} color='white' />
                 </Button>
               </Left>
               <Body>
@@ -47,14 +50,20 @@ class ModalComponent extends Component {
               </Body>
               <Right>
                 <Button onPress={this.handleShare} transparent>
-                  <Icon name="share" style={{ color: 'white', fontSize: 12 }} />
+                  <Icon name="share" size={20} color='white' />
+                </Button>
+                <Button onPress={this.handleClose} transparent>
+                  <Icon name="close" size={20} color='white' />  
                 </Button>
               </Right>
             </Header>
-            <Content contentContainerStyle={{ height: webViewHeight }}>
-              <WebView source={{ uri: url }} style={{ flex: 1 }}
+            <Content contentContainerStyle={{ flex: 1 }}>
+              <WebView 
+                source={{ uri: url }} 
+                style={{ flex: 1 }}
                 onError={this.handleClose} startInLoadingState
                 scalesPageToFit
+                ref={this.webViewRef}
               />
             </Content>
           </Container>
