@@ -4,6 +4,7 @@ const defaultState = {
   pending: false,
   articles: [],
   searchingArticles: [],
+  authors: [],
   error: null
 };
 
@@ -16,10 +17,22 @@ const getNewsReducer = (state = defaultState, action) => {
       };
 
     case CONSTANTS.GET_NEWS_SUCCEEDED:
+      let listAuthors = state.authors;
+      let listArticles = state.articles.concat(action.payload);
+      action.payload.map(item => {
+        let index = listAuthors.findIndex(article => article.author === item.author)
+        if (index !== -1){
+          listAuthors[index].numArticle++;
+        }
+        else{
+          listAuthors.push({author: item.author, numArticle: 1})
+        }
+      })
       return {
         ...state,
         pending: false,
-        articles: state.articles.concat(action.payload)
+        articles: listArticles,
+        authors: listAuthors
       }; 
     
     case CONSTANTS.GET_NEWS_FAILED:

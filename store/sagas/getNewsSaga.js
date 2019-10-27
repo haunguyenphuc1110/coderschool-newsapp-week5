@@ -4,7 +4,7 @@ import CONSTANTS from '../constants';
 function* getNews(action) {
   try {
     const response = yield fetch(
-      `https://newsapi.org/v2/everything?domains=wsj.com,nytimes.com&apiKey=fb4ae962a5ea49bc8819e7c9e94bcc9c&page=${action.payload}&pageSize=10`
+      `https://newsapi.org/v2/everything?q=*&apiKey=fb4ae962a5ea49bc8819e7c9e94bcc9c&page=${action.payload}&pageSize=10`
     );
     const jsonData = yield response.json();
     yield put({
